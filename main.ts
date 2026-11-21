@@ -3,7 +3,7 @@
 // Outside the grader, MAKEFUN_OUTPUT_DIR stands in for /output:
 //   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 
-import { cpSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-game.ts';
@@ -12,6 +12,13 @@ const here = fileURLToPath(new URL('.', import.meta.url));
 const out = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
 mkdirSync(out, { recursive: true });
+
+// Guard the hand-in: the scorer needs 3–4 screenshots and the game's entry page.
+const shotDir = join(here, 'screenshots');
+const shots = existsSync(shotDir) ? readdirSync(shotDir).filter((f) => /\.(jpe?g|png|webp)$/i.test(f)) : [];
+if (shots.length < 3 || shots.length > 4) throw new Error(`expected 3 to 4 screenshots in screenshots/, found ${shots.length}`);
+if (!existsSync(join(here, 'game', 'index.html'))) throw new Error('game/index.html is missing');
+
 cpSync(join(here, 'game'), join(out, 'game'), { recursive: true });
 mkdirSync(join(out, 'screenshots'), { recursive: true });
 if (existsSync(join(here, 'screenshots'))) cpSync(join(here, 'screenshots'), join(out, 'screenshots'), { recursive: true });
