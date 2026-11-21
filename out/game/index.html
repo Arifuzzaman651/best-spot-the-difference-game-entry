@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spot the Difference — Three Worlds</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">🔍 <span>Spot the Difference</span> <em>· Three Worlds</em></div>
+  <div class="hud">
+    <span id="level-name" class="pill">Garden Morning</span>
+    <span id="left-count" class="pill big">7 differences left</span>
+    <span id="timer" class="pill">00:00</span>
+    <button id="hint-btn" class="btn" title="Hint (H)">💡 Hint <b id="hint-count">3</b></button>
+    <button id="restart-btn" class="btn" title="Restart level (R)">↻ Restart</button>
+    <span class="levels">
+      <button class="lvl btn" data-level="0">1 · Garden</button>
+      <button class="lvl btn" data-level="1">2 · Market</button>
+      <button class="lvl btn" data-level="2">3 · Space</button>
+    </span>
+  </div>
+</header>
+<main>
+  <canvas id="game" width="1160" height="460" aria-label="Spot the difference: two near-identical pictures side by side"></canvas>
+  <p class="help">Click a difference in either picture to mark it. Find them all! &nbsp;·&nbsp; <b>H</b> hint &nbsp;·&nbsp; <b>R</b> restart level &nbsp;·&nbsp; <b>1 / 2 / 3</b> switch level</p>
+</main>
+<script type="module" src="./main.js"></script>
+</body>
+</html>
